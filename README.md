@@ -1,61 +1,63 @@
 # AI-Research-Digest-Agent
 
-# AI Research Digest Agent
+AI Research Digest Agent
 
-## Overview
-The *AI Research Digest Agent* is an autonomous tool designed to summarize research on a topic by reading multiple sources, extracting key claims, removing redundancy, and producing a structured, evidence-backed digest.  
-This project demonstrates practical skills in *AI, NLP, and data processing*.
+Overview
 
-*Topic Used for Demonstration:* AI in Healthcare
+The AI Research Digest Agent is an autonomous tool designed to summarize research on a topic by reading multiple sources, extracting key claims, removing redundancy, and producing a structured, evidence-backed digest.
+Demo Topic: AI in Healthcare
 
----
+This project demonstrates practical skills in AI, NLP, and data processing.
 
-## Features
-- *Content Ingestion:* Reads multiple text/HTML sources, cleans and normalizes text, stores metadata (source, title, length).  
-- *Claim Extraction:* Extracts key insights/claims from each source, with supporting quotes/snippets.  
-- *Deduplication & Grouping:* Identifies overlapping claims, groups similar claims, and tracks supporting sources.  
-- *Structured Digest Generation:* Produces:
-  - digest.md → Sectioned themes with source references.
-  - sources.json → Claims and evidence per source.
+Features
 
----
+Content Ingestion (ingestion.py): Reads multiple text/HTML files, cleans and normalizes text, and stores metadata like source, title, and length.
 
-## Project Structure
+Claim Extraction (claim_extractor.py): Extracts key claims/insights from each source along with supporting quotes/snippets.
 
+Deduplication & Grouping (grouper.py): Identifies overlapping or repeated claims, groups similar ones, and tracks which sources support each group.
 
+Digest Generation (generator.py): Creates the output files:
+
+digest.md → Sectioned themes with source references
+
+sources.json → JSON mapping claims to evidence and sources
+
+Main Driver (main.py): Calls all modules in sequence to run the full workflow from data ingestion to generating the digest.
+
+Project Structure
 research_digest_agent/
-│
-├── ingestion.py # Content ingestion module
-├── claim_extractor.py # Extracts claims from source text
-├── grouper.py # Groups similar claims
-├── generator.py # Generates digest.md and sources.json
-├── main.py # Main driver script
-│
-├── data/ # Input files (minimum 5 sources)
-│ ├── file1.txt
-│ ├── file2.txt
-│ ├── file3.txt
-│ ├── file4.txt
-│ ├── file5.txt
-│
-├── output/ # Generated outputs
-│ ├── digest.md
-│ ├── sources.json
+├── ingestion.py         # Reads and cleans input files
+├── claim_extractor.py   # Extracts key claims from sources
+├── grouper.py           # Groups similar claims
+├── generator.py         # Generates digest.md and sources.json
+├── main.py              # Main script to run the agent
+├── data/                # Input files (minimum 5 sources)
+│   ├── file1.txt
+│   ├── file2.txt
+│   ├── file3.txt
+│   ├── file4.txt
+│   ├── file5.txt
+├── output/              # Generated outputs
+│   ├── digest.md
+│   ├── sources.json
+How to Run
 
+Open the project folder in VS Code.
 
----
+Open the terminal (`Ctrl + ``).
 
-## How to Run
+Run the main script:
 
-1. Open the project folder in VS Code.  
-2. Open terminal in VS Code: Ctrl + `  
-3. Run the main script:  
-
-```bash
 python main.py
 
-Check the output/ folder for:
+Check the output/ folder for results:
 
 digest.md → Structured research digest
 
-sources.json → Claims with evidence and source references
+sources.json → Claims with evidence and sources
+
+Note: You only need to run main.py; all other modules are automatically called.
+
+
+
