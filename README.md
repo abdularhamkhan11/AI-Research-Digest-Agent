@@ -1,63 +1,69 @@
 # AI-Research-Digest-Agent
 
-AI Research Digest Agent
+AI Research Digest Agent – README
+1. How the agent processes sources step by step
 
-Overview
+Content Ingestion (ingestion.py)
 
-The AI Research Digest Agent is an autonomous tool designed to summarize research on a topic by reading multiple sources, extracting key claims, removing redundancy, and producing a structured, evidence-backed digest.
-Demo Topic: AI in Healthcare
+Reads all text files from the data/ folder.
 
-This project demonstrates practical skills in AI, NLP, and data processing.
+Cleans and normalizes text (removes extra spaces, special characters).
 
-Features
+Stores basic metadata: source name, title (if available), and length.
 
-Content Ingestion (ingestion.py): Reads multiple text/HTML files, cleans and normalizes text, and stores metadata like source, title, and length.
+Claim Extraction (claim_extractor.py)
 
-Claim Extraction (claim_extractor.py): Extracts key claims/insights from each source along with supporting quotes/snippets.
+Analyzes each source file.
 
-Deduplication & Grouping (grouper.py): Identifies overlapping or repeated claims, groups similar ones, and tracks which sources support each group.
+Extracts key claims or insights from the text.
 
-Digest Generation (generator.py): Creates the output files:
+Associates each claim with a supporting quote/snippet from the source.
 
-digest.md → Sectioned themes with source references
+Deduplication & Grouping (grouper.py)
 
-sources.json → JSON mapping claims to evidence and sources
+Compares extracted claims across sources.
 
-Main Driver (main.py): Calls all modules in sequence to run the full workflow from data ingestion to generating the digest.
+Groups similar or overlapping claims together.
 
-Project Structure
-research_digest_agent/
-├── ingestion.py         # Reads and cleans input files
-├── claim_extractor.py   # Extracts key claims from sources
-├── grouper.py           # Groups similar claims
-├── generator.py         # Generates digest.md and sources.json
-├── main.py              # Main script to run the agent
-├── data/                # Input files (minimum 5 sources)
-│   ├── file1.txt
-│   ├── file2.txt
-│   ├── file3.txt
-│   ├── file4.txt
-│   ├── file5.txt
-├── output/              # Generated outputs
-│   ├── digest.md
-│   ├── sources.json
-How to Run
+Keeps track of which sources support each group.
 
-Open the project folder in VS Code.
+Digest Generation (generator.py)
 
-Open the terminal (`Ctrl + ``).
+Produces digest.md: a structured digest with sectioned themes and source references.
 
-Run the main script:
+Produces sources.json: claims mapped to evidence and their sources.
 
-python main.py
+Main Driver (main.py)
 
-Check the output/ folder for results:
+Calls all modules in order.
 
-digest.md → Structured research digest
+Runs the full pipeline from data ingestion → claim extraction → grouping → output generation.
 
-sources.json → Claims with evidence and sources
+2. How claims are grounded
 
-Note: You only need to run main.py; all other modules are automatically called.
+Every claim is directly extracted from source text.
 
+Each claim in sources.json includes the exact supporting snippet and the source file name.
 
+No facts are invented — all claims are evidence-backed.
+
+3. How deduplication/grouping works
+
+Claims are compared for text similarity (simple string matching or basic similarity metrics).
+
+Overlapping or repeated claims are grouped together.
+
+Each group tracks all sources that support it, ensuring proper attribution.
+
+Conflicting viewpoints are preserved with their respective sources.
+
+4. One limitation
+
+Currently supports only local text files; URLs or PDFs are not automatically handled.
+
+5. One improvement with more time
+
+Add confidence scores for each claim to indicate reliability.
+
+Optionally, implement visualization for grouped claims and clusterin
 
